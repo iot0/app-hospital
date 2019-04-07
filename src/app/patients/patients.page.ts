@@ -14,7 +14,7 @@ import { ThemeService } from "../shared/services/theme.service";
 export class PatientsPage implements OnInit, OnDestroy {
   data$: BehaviorSubject<any> = new BehaviorSubject({ loading: true });
   isAlive: boolean = true;
-  constructor(private userService: UserService, private route: ActivatedRoute, private themeService: ThemeService) {
+  constructor(public userService: UserService, private route: ActivatedRoute, private themeService: ThemeService) {
     this.route.params.subscribe(param => {
       console.log(param);
       // loading  details

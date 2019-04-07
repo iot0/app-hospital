@@ -24,7 +24,7 @@ export class PatientPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private userService: UserService,
+    public userService: UserService,
     public modalController: ModalController,
     private themeService: ThemeService
   ) {}

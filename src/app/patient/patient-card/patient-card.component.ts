@@ -12,7 +12,7 @@ import { NotificationType } from "src/app/shared/models/notification";
 })
 export class PatientCardComponent implements OnInit {
   @Input("data")
-  patient: User;
+  patient: any;
   constructor(private modalController: ModalController, public userService: UserService) {}
 
   ngOnInit() {}
