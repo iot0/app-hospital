@@ -1,14 +1,81 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>
-      Ionic Blank
+      Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+  <div class="bg-secondary h-100 content-center">
+    <div class="col-grid">
+      <!--trips-->
+      <ion-card class="col-item" [routerLink]="['/patients']" *ngIf="(userService.isHospital$ | async)">
+        <ion-icon name="infinite" color="secondary"></ion-icon>
+        <img src="/assets/patient.png" alt="" />
+        <div class="col-label">
+          Patients
+        </div>
+      </ion-card>
+      <ion-card class="col-item" [routerLink]="['/patients/' + user.Uid]" *ngIf="(userService.isDoctor$ | async)">
+        <ion-icon name="infinite" color="secondary"></ion-icon>
+        <img src="/assets/patient.png" alt="" />
+        <div class="col-label">
+          Your Patients
+        </div>
+      </ion-card>
+      <ion-card class="col-item" [routerLink]="['/doctors']" *ngIf="(userService.isHospital$ | async)">
+        <ion-icon name="infinite" color="secondary"></ion-icon>
+        <img src="/assets/doctor.jpg" alt="" />
+        <div class="col-label">
+          Doctors
+        </div>
+      </ion-card>
+      <ion-card class="col-item" [routerLink]="['/notification']" *ngIf="(userService.isHospital$ | async)">
+        <!-- <ion-icon name="infinite" color='secondary'></ion-icon> -->
+        <img src="/assets/alert.png" alt="" />
+        <div class="col-label">
+          Alert
+        </div>
+      </ion-card>
+      <ion-card class="col-item" [routerLink]="['/notification']" *ngIf="(userService.isDoctor$ | async)">
+        <!-- <ion-icon name="infinite" color='secondary'></ion-icon> -->
+        <img src="/assets/alert.png" alt="" />
+        <div class="col-label">
+          Sent Items
+        </div>
+      </ion-card>
+      <ion-card class="col-item" [routerLink]="['/notification']" *ngIf="(userService.isPatient$ | async)">
+        <!-- <ion-icon name="infinite" color='secondary'></ion-icon> -->
+        <img src="/assets/patient.png" alt="" />
+        <div class="col-label">
+          Notifications
+        </div>
+      </ion-card>
+      <ion-card class="col-item" *ngIf="(userService.isDoctor$ | async)" [routerLink]="['/doctor/' + user.Uid]">
+        <!-- <ion-icon name="infinite" color='secondary'></ion-icon> -->
+        <img src="/assets/doctor.jpg" alt="" />
+        <div class="col-label">
+          Your Details
+        </div>
+      </ion-card>
+      <ion-card class="col-item" *ngIf="(userService.isPatient$ | async)" [routerLink]="['/patient/' + user.Uid]">
+        <!-- <ion-icon name="infinite" color='secondary'></ion-icon> -->
+        <img src="/assets/family.png" alt="" />
+        <div class="col-label">
+          Your Details
+        </div>
+      </ion-card>
+      <!---->
+      <ion-card class="col-item" (click)="onLogOut()">
+        <ion-icon name="log-out" color="danger"></ion-icon>
+        <div class="col-label">
+          Log Out
+        </div>
+      </ion-card>
+    </div>
   </div>
 </ion-content>
+<app-drawer [options]="drawerOptions" *ngIf='userService.isDoctor$|async' #drawer>
+  <app-device-connect [drawer]="drawer"></app-device-connect>
+</app-drawer>

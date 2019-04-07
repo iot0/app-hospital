@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "316736585116",
+    "firebase_url": "https://hospital-app-1ac67.firebaseio.com",
+    "project_id": "hospital-app-1ac67",
+    "storage_bucket": "hospital-app-1ac67.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:316736585116:android:c262433be7aec21e",
+        "android_client_info": {
+          "package_name": "com.keephacking.hospital"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5tgOnRxmlvLtQS3gzncOYsUIOY_EzBT4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "316736585116-epmh7l2r55psh8al8vqm9fv5bvhjj6mr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!--Family view section-->
+  <ng-container *ngIf="(data$ | async) as res">
+    <ng-container *ngIf="res.data; else notificationTemplate">
+      <app-doctor-card [data]="res.data"></app-doctor-card>
+    </ng-container>
+    <!--Notification on family error section-->
+    <ng-template #notificationTemplate>
+      <ng-container *ngIf="res.error || res.empty; else loadingTemplate">
+        <div class="item-center" [hidden]="!res.error">
+          Something went wrong , Try again later .
+        </div>
+        <div class="item-center" [hidden]="!res.empty">
+          Please add family details .
+        </div>
+      </ng-container>
+    </ng-template>
+  </ng-container>
+</ion-content>
+
+<!--Loading template section-->
+<ng-template #loadingTemplate>
+  <div class="item-center">
+    <ion-spinner name="lines"></ion-spinner>
+  </div>
+</ng-template>

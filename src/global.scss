@@ -1,11 +1,228 @@
+@import "./theme/theme";
 // http://ionicframework.com/docs/theming/
-@import '~@ionic/angular/css/core.css';
-@import '~@ionic/angular/css/normalize.css';
-@import '~@ionic/angular/css/structure.css';
-@import '~@ionic/angular/css/typography.css';
-@import '~@ionic/angular/css/display.css';
-@import '~@ionic/angular/css/padding.css';
-@import '~@ionic/angular/css/float-elements.css';
-@import '~@ionic/angular/css/text-alignment.css';
-@import '~@ionic/angular/css/text-transformation.css';
-@import '~@ionic/angular/css/flex-utils.css';
+@import "~@ionic/angular/css/core.css";
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+.text-error {
+  color: kh-theme(danger) !important;
+}
+.nowrap {
+  white-space: nowrap;
+}
+.h-100 {
+  height: 100%;
+}
+.content-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bg-primary {
+  background-color: kh-theme(primary);
+}
+
+.bg-secondary {
+  background-color: kh-theme(secondary);
+}
+
+.position-relative {
+  position: relative;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.image-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 250px;
+  width: 100%;
+
+  .image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background-image: url("/assets/empty.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  img {
+    height: 100%;
+  }
+}
+//custom
+.display-flex {
+  display: flex;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.display-full {
+  height: 100%;
+  width: 100%;
+}
+
+.display-column {
+  flex-direction: column;
+}
+
+.modal-toaster {
+  z-index: 9999999;
+}
+
+.item-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.place-img {
+  min-height: 200px;
+  width: 100%;
+  background-image: url("/assets/images/empty.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.place-header {
+  overflow: initial;
+}
+
+.kh-col-2 {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+//dashboard
+
+.col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  grid-column-gap: 5px;
+  grid-row-gap: 10px;
+
+  .col-item {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background-color: white;
+    align-self: center;
+    ion-icon {
+      flex: 1;
+      font-size: 3em;
+    }
+
+    img {
+      height: 100px;
+      width: auto;
+    }
+
+    .col-label {
+      flex: 1;
+      font-size: 20px;
+      padding-top: 20px;
+    }
+  }
+}
+
+// Creates a ribbon effect with the given options:
+@mixin ribbonize($ribbon-color, $text-color: white, $border-width: 3px) {
+  span {
+    color: $text-color;
+    background: $ribbon-color;
+    &::before {
+      border-left: $border-width solid $ribbon-color;
+      border-top: $border-width solid $ribbon-color;
+    }
+    &::after {
+      border-right: $border-width solid $ribbon-color;
+      border-top: $border-width solid $ribbon-color;
+    }
+  }
+}
+
+.item-ribbon {
+  background-color: #fff;
+  position: relative;
+  filter: none;
+  opacity: 1;
+  .ribbon {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    z-index: 2;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: right;
+    span {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 20px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      width: 100px;
+      display: block;
+      background: kh-theme(success);
+      position: absolute;
+      top: 19px;
+      right: -21px;
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 100%;
+        z-index: -1;
+        border-left: 3px solid kh-theme(success);
+        border-right: 3px solid transparent;
+        border-bottom: 3px solid transparent;
+        border-top: 3px solid kh-theme(success);
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 100%;
+        z-index: -1;
+        border-left: 3px solid transparent;
+        border-right: 3px solid kh-theme(success);
+        border-bottom: 3px solid transparent;
+        border-top: 3px solid kh-theme(success);
+      }
+    }
+  }
+}
+
+.ribbon.energized {
+  @include ribbonize(color($selectedTheme, energized));
+}

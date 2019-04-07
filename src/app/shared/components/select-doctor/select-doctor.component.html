@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-title>Select Doctor</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="solid" (click)="onClose()" color="light" fill="outline">
+        Close
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="(data$ | async) as res">
+    <ng-container *ngIf="res.data; else notificationTemplate">
+      <div class="position-relative">
+        <ion-list lines="inset">
+          <ion-item *ngFor="let doctor of res.data" (click)='onSelect(doctor)'>
+            <ion-label text-wrap>
+              <ion-text color="primary">
+                <h3>{{ doctor.FullName }}</h3>
+              </ion-text>
+              <p>{{ doctor.Department }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ng-container>
+    <ng-template #notificationTemplate>
+      <ng-container *ngIf="res.error || res.empty; else loadingTemplate">
+        <div class="item-center" [hidden]="!res.error">
+          Something went wrong , Try again later .
+        </div>
+        <div class="item-center" [hidden]="!res.empty">
+          List is empty.
+        </div>
+      </ng-container>
+      <ng-template #loadingTemplate>
+        <div class="item-center">
+          <ion-spinner name="lines"></ion-spinner>
+        </div>
+      </ng-template>
+    </ng-template>
+  </ng-container>
+</ion-content>

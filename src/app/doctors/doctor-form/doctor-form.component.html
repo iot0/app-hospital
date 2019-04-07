@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-button fill="solid" (click)="onClose()" color="light" fill="outline">
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Add Doctor</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="solid" (click)="onSubmit()" color="light" fill="outline">
+        Confirm
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <form [formGroup]="createForm" novalidate>
+      <ion-item-divider>
+        <ion-label>
+          <ion-text color="primary">
+            <h2>FULL NAME</h2>
+          </ion-text>
+        </ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-input formControlName="fullName" type="text" placeholder="John Gregory"></ion-input>
+      </ion-item>
+      <ion-item-divider>
+        <ion-label>
+          <ion-text color="primary">
+            <h2>EMAIL ID</h2>
+          </ion-text>
+        </ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-input formControlName="emailId" type="text" placeholder="join@doc.com"></ion-input>
+      </ion-item>
+      <ion-item-divider>
+        <ion-label>
+          <ion-text color="primary">
+            <h2>DEPARTMENT</h2>
+          </ion-text>
+        </ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-input formControlName="department" type="text" placeholder="Cardiac"></ion-input>
+      </ion-item>
+      <ion-item-divider>
+        <ion-label>
+          <ion-text color="primary">
+            <h2>JOINED DATE</h2>
+          </ion-text>
+        </ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-datetime formControlName="joinedDate" display-format="MMM DD, YYYY HH:mm" placeholder="Select Date of Joining" [min]='todaysDate'></ion-datetime>
+      </ion-item>
+      <ion-item-divider>
+        <ion-label>
+          <ion-text color="primary">
+            <h2>DATE OF BIRTH</h2>
+          </ion-text>
+        </ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-datetime formControlName="dob" display-format="MMM DD, YYYY HH:mm" placeholder="Select Date of Birth" [max]='todaysDate'></ion-datetime>
+      </ion-item>
+      <ion-item-divider>
+        <ion-label>
+          <ion-text color="primary">
+            <h2>ADDRESS</h2>
+          </ion-text>
+        </ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-textarea formControlName="address" type="text" placeholder="Address"></ion-textarea>
+      </ion-item>
+    </form>
+  </ion-list>
+</ion-content>

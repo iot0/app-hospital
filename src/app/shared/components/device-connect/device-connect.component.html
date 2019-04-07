@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color='success'>
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon slot="icon-only" name="person"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Patient Watch Statuses</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="drawer.toggleState()">
+        <ion-icon name="arrow-dropup-circle" [hidden]="isOpened"></ion-icon>
+        <ion-icon name="arrow-dropdown-circle" [hidden]="!isOpened"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-card *ngFor="let device of getStatuses()|async">
+    <ion-item>
+      <ion-avatar slot="start">
+        <img src="/assets/iot.png" />
+      </ion-avatar>
+      <ion-label>
+        <p>Patient:{{ device.PatientName }}</p>
+        <p>Status : {{device.Status}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
+</ion-content>

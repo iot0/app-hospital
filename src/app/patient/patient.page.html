@@ -1,0 +1,93 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Patient</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <!-- New patient form section-->
+  <ng-container *ngIf="mode === 'new'; else existingTemplate">
+    <app-patient-form (success)="afterPatientRegistration($event)"></app-patient-form>
+  </ng-container>
+
+  <!--Existing patient section .-->
+  <ng-template #existingTemplate>
+    <ng-container *ngIf="(data$ | async) as res">
+      <ng-container *ngIf="res.data; else notificationTemplate">
+        <div class="position-relative">
+          <!--Patient view section-->
+          <app-patient-card [data]="res.data"></app-patient-card>
+
+          <!--Family divider section-->
+          <ion-item-divider>
+            <ion-label>
+              <ion-text color="primary">
+                <h2>Family</h2>
+              </ion-text>
+            </ion-label>
+            <ion-fab-button slot="end" color="secondary" (click)="addFamily()" *ngIf='userService.isHospital$|async '>
+              <ion-icon name="person-add"></ion-icon>
+            </ion-fab-button>
+          </ion-item-divider>
+
+          <!--Family view section-->
+          <ng-container *ngIf="(family$ | async) as familyRes">
+            <ng-container *ngIf="familyRes.data; else familyDataNotificationTemplate">
+              <app-family-card [data]="familyRes.data"></app-family-card>
+            </ng-container>
+            <!--Notification on family error section-->
+            <ng-template #familyDataNotificationTemplate>
+              <ng-container *ngIf="familyRes.error || familyRes.empty; else loadingTemplate">
+                <div class="item-center" [hidden]="!familyRes.error">
+                  Something went wrong , Try again later .
+                </div>
+                <div class="item-center" [hidden]="!familyRes.empty">
+                  No family details added .
+                </div>
+              </ng-container>
+            </ng-template>
+          </ng-container>
+
+          <!--Notification on patient error section-->
+          <ng-template #notificationTemplate>
+            <ng-container *ngIf="res.error || res.empty; else loadingTemplate">
+              <div class="item-center" [hidden]="!res.error">
+                Something went wrong , Try again later .
+              </div>
+              <div class="item-center" [hidden]="!res.empty">
+                Invalid Patient
+              </div>
+            </ng-container>
+          </ng-template>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</ion-content>
+<ion-footer *ngIf='userService.isDoctor$|async '>
+  <ion-toolbar [color]="(data$ | async)?.data?.IsWatching ? 'success' : 'warning'" *ngIf="mode === 'existing'">
+    <ion-title>
+      <ng-container *ngIf="!(data$ | async)?.data?.IsWatching; else watchingTitleTemplate">
+        Add To Watch
+      </ng-container>
+      <ng-template #watchingTitleTemplate>
+        Watching...
+      </ng-template>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button color="secondary" (click)="addToWatch()" *ngIf="!(data$ | async)?.data?.IsWatching">
+        <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
+      </ion-button>
+      <ion-button color="danger" (click)="removeFromWatch()" *ngIf="(data$ | async)?.data?.IsWatching">
+        <ion-icon slot="icon-only" name="remove-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+
+<!--Loading template section-->
+<ng-template #loadingTemplate>
+  <div class="item-center">
+    <ion-spinner name="lines"></ion-spinner>
+  </div>
+</ng-template>
