@@ -42,8 +42,9 @@ export class DoctorFormComponent implements OnInit {
   }
 
   prepareSaveInfo(): User {
+    let user:User=this.userService.currentUserObj();
     const formModel = this.createForm.value;
-    let user: User = {
+    let data: User = {
       JoinedDate: formModel.joinedDate,
       Address: formModel.address,
       FullName: formModel.fullName,
@@ -51,9 +52,10 @@ export class DoctorFormComponent implements OnInit {
       EmailId:formModel.emailId,
       Department:formModel.department,
       Password:generatePassword(formModel.dob,formModel.emailId), 
-      DOB:formModel.dob
+      DOB:formModel.dob,
+      HospitalId:user.Uid
     };
-    return user;
+    return data;
   }
 
   onSubmit() {

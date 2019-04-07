@@ -18,7 +18,6 @@ export class DeviceService {
   }
 
   startTimer(ip: string,threshold:any) {
-    debugger;
     return timer(0, 2000)
       .pipe(
         switchMap(x => {

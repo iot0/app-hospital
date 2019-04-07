@@ -3,18 +3,18 @@ import { ModalController } from "@ionic/angular";
 import { LocationModalComponent } from "./location-modal.component";
 import { LocationService } from "./location.service";
 import { NgxConfig } from "ngx-map";
-import { convertToBoolProperty } from '../../helper';
+import { convertToBoolProperty } from "../../helper";
 
 @Directive({
   selector: "[appLocation]"
 })
 export class LocationDirective implements OnInit {
   @Input("appLocation") marker;
-  @Input("enableSelection") 
-  set enableSelection(val){
-    this._enableSelection=convertToBoolProperty(val);
+  @Input("enableSelection")
+  set enableSelection(val) {
+    this._enableSelection = convertToBoolProperty(val);
   }
-  _enableSelection:boolean=false;
+  _enableSelection: boolean = false;
 
   @Input("disableOnClickTrigger") disableOnClickTrigger: boolean = false;
 
@@ -32,17 +32,20 @@ export class LocationDirective implements OnInit {
 
   openMap() {
     let props: NgxConfig = {};
-    if (this.marker) {
-      try {
-        let marker = JSON.parse(this.marker);
-        if (marker.lat && marker.lng) {
-          props = {
-            ...props,
-            marker: marker
-          };
-        }
-      } catch (e) {}
-    }
+    let marker = null;
+    try {
+      if (!this.marker) {
+        marker = { lat: "8.749810", lng: "76.717750" };
+      } else {
+        marker = JSON.parse(this.marker);
+      }
+      if (marker.lat && marker.lng) {
+        props = {
+          ...props,
+          marker: marker
+        };
+      }
+    } catch (e) {}
     if (this._enableSelection) {
       props = {
         ...props,

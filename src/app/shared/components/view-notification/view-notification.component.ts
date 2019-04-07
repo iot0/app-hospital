@@ -4,6 +4,7 @@ import { catchError, takeWhile } from "rxjs/operators";
 import { BehaviorSubject } from "rxjs";
 import { ModalController } from "@ionic/angular";
 import { Router } from "@angular/router";
+import { ThemeService } from '../../services/theme.service';
 
 @Component({
   selector: "app-view-notification",
@@ -15,7 +16,9 @@ export class ViewNotificationComponent implements OnInit {
   isAlive: boolean = true;
   from: string;
   to: string;
-  constructor(private notificationService: NotificationService, private modalCtrl: ModalController, private router: Router) {}
+  constructor(private notificationService: NotificationService, 
+    private modalCtrl: ModalController, private router: Router,
+    private themeService:ThemeService) {}
 
   ngOnInit() {
     if (this.from && this.to) {
@@ -24,6 +27,9 @@ export class ViewNotificationComponent implements OnInit {
       this.loadSentItems(this.from);
     } else if (this.to) {
       this.loadReceivedItems(this.to);
+    }else{
+      this.data$.next({ error: true });
+      this.themeService.alert("Error","Invalid Parameters");
     }
   }
 

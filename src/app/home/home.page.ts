@@ -25,6 +25,7 @@ export class HomePage implements AfterViewInit {
     private modalCtrl: ModalController
   ) {
     this.user = this.userService.currentUserObj();
+    console.log(this.user);
     this.drawerOptions = {
       handleHeight: 50,
       thresholdFromBottom: 200,
@@ -50,10 +51,12 @@ export class HomePage implements AfterViewInit {
   async openNotifications() {
     let user = this.userService.currentUserObj();
     let props: any = {};
-    if (user.Role == UserRole.Patient) {
+    if (user.Role == UserRole.Patient || user.Role == UserRole.Hospital) {
       props.to = user.Uid;
     } else if (user.Role == UserRole.Family) {
       props.to = user.Patient.Uid;
+    }else if(user.Role == UserRole.Doctor) {
+      props.from=user.Uid;
     }
     const modal = await this.modalCtrl.create({
       component: ViewNotificationComponent,
