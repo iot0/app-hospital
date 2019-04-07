@@ -5,6 +5,7 @@ import { BehaviorSubject } from "rxjs";
 import { ModalController } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { ThemeService } from '../../services/theme.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: "app-view-notification",
@@ -17,7 +18,9 @@ export class ViewNotificationComponent implements OnInit {
   from: string;
   to: string;
   constructor(private notificationService: NotificationService, 
-    private modalCtrl: ModalController, private router: Router,
+    private modalCtrl: ModalController, 
+    private router: Router,
+    public userService:UserService,
     private themeService:ThemeService) {}
 
   ngOnInit() {

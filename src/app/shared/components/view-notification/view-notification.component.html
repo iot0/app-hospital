@@ -29,22 +29,24 @@
                 </ion-text>
               </ion-label>
             </ion-item>
-            <ion-item *ngIf="data.Type == 1" (click)="viewPatient(data.Patient?.Uid)" detail>
-              <ion-avatar slot="start">
-                <img src="/assets/patient.png" />
-              </ion-avatar>
-              <ion-label text-wrap>
-                <p>Patient Name : {{ data.Patient?.FullName }}</p>
-              </ion-label>
-            </ion-item>
-            <ion-item *ngIf="data.Type == 2" (click)="viewPatient(data.From?.Uid)" detail>
-              <ion-avatar slot="start">
-                <img src="/assets/patient.png" />
-              </ion-avatar>
-              <ion-label text-wrap>
-                <p>Patient Name : {{ data.From?.FullName }}</p>
-              </ion-label>
-            </ion-item>
+            <ng-container *ngIf="(userService.isHospital$ | async) || (userService.isDoctor$ | async)">
+              <ion-item *ngIf="data.Type == 1" (click)="viewPatient(data.Patient?.Uid)" detail>
+                <ion-avatar slot="start">
+                  <img src="/assets/patient.png" />
+                </ion-avatar>
+                <ion-label text-wrap>
+                  <p>Patient Name : {{ data.Patient?.FullName }}</p>
+                </ion-label>
+              </ion-item>
+              <ion-item *ngIf="data.Type == 2" (click)="viewPatient(data.From?.Uid)" detail>
+                <ion-avatar slot="start">
+                  <img src="/assets/patient.png" />
+                </ion-avatar>
+                <ion-label text-wrap>
+                  <p>Patient Name : {{ data.From?.FullName }}</p>
+                </ion-label>
+              </ion-item>
+            </ng-container>
           </ion-card>
         </ion-list>
       </div>
