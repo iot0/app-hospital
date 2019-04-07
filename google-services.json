@@ -1,29 +1,29 @@
 {
   "project_info": {
-    "project_number": "316736585116",
-    "firebase_url": "https://hospital-app-1ac67.firebaseio.com",
-    "project_id": "hospital-app-1ac67",
-    "storage_bucket": "hospital-app-1ac67.appspot.com"
+    "project_number": "776910502927",
+    "firebase_url": "https://health-monitoring-631be.firebaseio.com",
+    "project_id": "health-monitoring-631be",
+    "storage_bucket": "health-monitoring-631be.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:316736585116:android:c262433be7aec21e",
+        "mobilesdk_app_id": "1:776910502927:android:0d6c0486c922b673",
         "android_client_info": {
-          "package_name": "com.keephacking.hospital"
+          "package_name": "com.health.healthmonitoring"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyB5tgOnRxmlvLtQS3gzncOYsUIOY_EzBT4"
+          "current_key": "AIzaSyBN6cduz4jeaOtmKwazyEBDfQPTofwc5ks"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "316736585116-epmh7l2r55psh8al8vqm9fv5bvhjj6mr.apps.googleusercontent.com",
+              "client_id": "776910502927-tptt1demvrhg01ng7ehs4uqe9cildsll.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
