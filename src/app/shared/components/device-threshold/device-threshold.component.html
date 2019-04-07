@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start">
+      <ion-button fill="solid" (click)="onClose()" color="light" fill="outline">
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Set Threshold</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="solid" (click)="onSubmit()" color="light" fill="outline">
+        Confirm
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <form [formGroup]="createForm" novalidate>
+      <ion-item-divider>
+        <ion-label>
+          <ion-text color="primary">
+            <h2>TEMPARATURE</h2>
+          </ion-text>
+        </ion-label>
+      </ion-item-divider>
+      <ion-item> Min: <ion-input formControlName="minTemp" type="number" placeholder="min"></ion-input> </ion-item>
+      <ion-item> Max :<ion-input formControlName="maxTemp" type="number" placeholder="max"></ion-input> </ion-item>
+      <ion-item-divider>
+        <ion-label>
+          <ion-text color="primary">
+            <h2>PRESSURE</h2>
+          </ion-text>
+        </ion-label>
+      </ion-item-divider>
+      <ion-item> Min: <ion-input formControlName="minPressure" type="number" placeholder="min"></ion-input> </ion-item>
+      <ion-item> Max :<ion-input formControlName="maxPressure" type="number" placeholder="max"></ion-input> </ion-item>
+      <ion-item-divider>
+        <ion-label>
+          <ion-text color="primary">
+            <h2>HEART BEAT RATE</h2>
+          </ion-text>
+        </ion-label>
+      </ion-item-divider>
+      <ion-item> Min: <ion-input formControlName="minHeartRate" type="number" placeholder="min"></ion-input> </ion-item>
+      <ion-item> Max :<ion-input formControlName="maxHeartRate" type="number" placeholder="max"></ion-input> </ion-item>
+    </form>
+  </ion-list>
+</ion-content>

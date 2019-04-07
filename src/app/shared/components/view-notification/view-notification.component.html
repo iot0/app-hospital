@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title>Notifications</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="solid" (click)="onClose()" color="danger" fill="outline">
+        Cancel
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ng-container *ngIf="(data$ | async) as res">
+    <ng-container *ngIf="res.data; else notificationTemplate">
+      <div class="position-relative">
+        <ion-list lines="inset">
+          <ion-card *ngFor="let data of res.data">
+            <ion-item>
+              <ion-avatar slot="start">
+                <ng-container *ngIf="data.Type == 2; else alertAvatarTemplate">
+                  <img src="/assets/prescription.png" />
+                </ng-container>
+                <ng-template #alertAvatarTemplate>
+                  <img src="/assets/alert.png" />
+                </ng-template>
+              </ion-avatar>
+              <ion-label text-wrap>
+                <ion-text color="primary">
+                  <h3>{{ data.Message }}</h3>
+                </ion-text>
+              </ion-label>
+            </ion-item>
+            <ion-item *ngIf="data.Type == 1" (click)="viewPatient(data.Patient?.Uid)" detail>
+              <ion-avatar slot="start">
+                <img src="/assets/patient.png" />
+              </ion-avatar>
+              <ion-label text-wrap>
+                <p>Patient Name : {{ data.Patient?.FullName }}</p>
+              </ion-label>
+            </ion-item>
+            <ion-item *ngIf="data.Type == 2" (click)="viewPatient(data.From?.Uid)" detail>
+              <ion-avatar slot="start">
+                <img src="/assets/patient.png" />
+              </ion-avatar>
+              <ion-label text-wrap>
+                <p>Patient Name : {{ data.From?.FullName }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-card>
+        </ion-list>
+      </div>
+    </ng-container>
+    <ng-template #notificationTemplate>
+      <ng-container *ngIf="res.error || res.empty; else loadingTemplate">
+        <div class="item-center" [hidden]="!res.error">
+          Something went wrong , Try again later .
+        </div>
+        <div class="item-center" [hidden]="!res.empty">
+          List is empty.
+        </div>
+      </ng-container>
+      <ng-template #loadingTemplate>
+        <div class="item-center">
+          <ion-spinner name="lines"></ion-spinner>
+        </div>
+      </ng-template>
+    </ng-template>
+  </ng-container>
+</ion-content>

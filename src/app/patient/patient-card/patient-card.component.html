@@ -10,9 +10,21 @@
     <p>Doctor Assigned : {{ patient?.Doctor?.FullName }}</p>
     <p>Record Created Date : {{ patient?.CreatedAt ? (patient?.CreatedAt.toDate() | date) : "" }}</p>
   </ion-card-content>
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button  [appLocation]='patient.LatLng' enableSelection='false'>
-      <ion-icon name="compass"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+
+  <ion-fab vertical="bottom" horizontal="end">
+      <ion-fab-button>
+          <ion-icon name="more"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-list side="start">
+        <ion-fab-button [appLocation]='patient.LatLng' enableSelection='false'>
+            <ion-icon name="compass"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button (click)='givePrescription()' *ngIf='userService.isDoctor$|async'>
+            <ion-icon name="mail"></ion-icon>
+        </ion-fab-button>
+        <ion-fab-button (click)='alertForAmbulance()' *ngIf='userService.isDoctor$|async'>
+            <ion-icon name="alert"></ion-icon>
+        </ion-fab-button>
+      </ion-fab-list>
+    </ion-fab>
 </ion-card>

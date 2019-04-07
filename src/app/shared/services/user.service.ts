@@ -37,6 +37,12 @@ export class UserService {
     })
   );
 
+  isFamily$: Observable<boolean> = this.userSubject.asObservable().pipe(
+    map(x => {
+      return x ? x.Role == UserRole.Family : false;
+    })
+  );
+
   userCollection: AngularFirestoreCollection<User>;
   constructor(private router: Router, private firestoreService: FirestoreService, public afAuth: AngularFireAuth) {
     const user = window.localStorage[this.localKey];
@@ -122,11 +128,12 @@ export class UserService {
     });
   }
 
-  getWatchingDevices(){
+  getWatchingDevices(doctorId:string){
     return this.firestoreService.colWithIds$<User>(this.collectionName, ref => {
       return ref
         .where("Role", "==", UserRole.Patient)
         .where("IsWatching", "==", true)
+        .where("Doctor.Uid", "==", doctorId)
         .limit(20);
     });
   }

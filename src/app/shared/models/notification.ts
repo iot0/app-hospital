@@ -1,12 +1,13 @@
 import { User } from './user';
 
-export class Notification {
-  Id: string;
-  To: User;
-  From: User;
-  Message: string;
-  Type: NotificationType;
-  IsRead:boolean;
+export class AppNotification {
+  Id?: string;
+  To?: User;
+  From?: User;
+  Message?: string;
+  Type?: NotificationType;
+  IsRead?:boolean;
+  Patient?:User;
 }
 
 export enum NotificationType {

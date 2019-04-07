@@ -32,7 +32,8 @@ export class DoctorFormComponent implements OnInit {
       joinedDate: ["", Validators.required],
       address: ["", Validators.required],
       emailId: ["", Validators.required],
-      dob:["",Validators.required]
+      dob:["",Validators.required],
+      department:["",Validators.required],
     });
   }
 

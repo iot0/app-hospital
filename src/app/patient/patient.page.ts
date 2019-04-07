@@ -32,7 +32,7 @@ export class PatientPage implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(param => {
       console.log(param);
-      if (param.id) {
+      if (param.id && param.id != "undefined") {
         // loading patient details
         this.loadPatientDetails(param.id);
         //loading family details

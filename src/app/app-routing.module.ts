@@ -14,8 +14,7 @@ const routes: Routes = [
   { path: "patient", redirectTo: "patient/" },
   { path: "patient/:id", loadChildren: "./patient/patient.module#PatientPageModule" },
   { path: "doctor", redirectTo: "doctor/" },
-  { path: "doctor/:id", loadChildren: "./doctor/doctor.module#DoctorPageModule" },
-  { path: 'notification', loadChildren: './notification/notification.module#NotificationPageModule' }
+  { path: "doctor/:id", loadChildren: "./doctor/doctor.module#DoctorPageModule" }
 ];
 
 @NgModule({

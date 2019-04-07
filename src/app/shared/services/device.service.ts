@@ -13,33 +13,17 @@ export class DeviceService {
   deviceWatchList = {};
   constructor(private http: HttpClient) {}
 
-  sync(patient: User) {
-    if (!this.deviceWatchList[patient.DeviceIp]) {
-      this.deviceWatchList[patient.DeviceIp] = patient;
-      this.startTimer(patient.DeviceIp);
-    }
-    return;
+  sync(patientIp,threshold) {
+    return this.startTimer(patientIp,threshold);
   }
 
-  setDeviceStatus(status) {
-    this.deviceStatus$.next(status);
-  }
-
-  onDeviceStatus(): Observable<any> {
-    return this.deviceStatus$.pipe(share());
-  }
-
-  startTimer(ip: string) {
-    timer(0, 2000)
+  startTimer(ip: string,threshold:any) {
+    debugger;
+    return timer(0, 2000)
       .pipe(
         switchMap(x => {
-          return this.http.get(`http://${ip}/status`);
+          return this.http.post(`http://${ip}/status`,threshold);
         }),
-        share()
-      )
-      .subscribe(status => {
-        this.deviceWatchList[ip] = status;
-        this.setDeviceStatus(this.deviceWatchList);
-      });
+        share());
   }
 }
