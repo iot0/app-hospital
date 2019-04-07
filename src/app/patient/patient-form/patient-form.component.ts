@@ -17,7 +17,7 @@ export class PatientFormComponent implements OnInit {
   todaysDate: string = new Date().toISOString();
 
   @Output("success")
-  onSuccess:EventEmitter<User>=new EventEmitter();
+  onSuccess: EventEmitter<User> = new EventEmitter();
 
   constructor(
     private fb: FormBuilder,
@@ -73,6 +73,7 @@ export class PatientFormComponent implements OnInit {
       DOB: formModel.dob,
       EmailId: formModel.emailId,
       PhoneNumber: formModel.phoneNumber,
+      LatLng: formModel.latLng,
       Address: formModel.address,
       Role: UserRole.Patient,
       Password: generatePassword(formModel.dob, formModel.emailId),
@@ -99,7 +100,6 @@ export class PatientFormComponent implements OnInit {
         })
         .finally(() => {
           this.themeService.progress(false);
-          
         });
     } else {
       this.themeService.alert("Fields Missing", "All Fields are necessary.");

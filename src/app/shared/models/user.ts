@@ -17,6 +17,7 @@ export class User {
   IsWatching?:boolean;
   DeviceIp?:string;
   HospitalId?:string;
+  LatLng?:string;
 }
 export enum UserRole {
   Doctor = 1,
