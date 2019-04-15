@@ -10,7 +10,7 @@ import { ModalController } from "@ionic/angular";
 })
 export class SyncDeviceComponent implements OnInit {
   patient: User;
-  constructor(private deviceService: DeviceService, private modalCtrl: ModalController) {}
+  constructor(private modalCtrl: ModalController) {}
 
   ngOnInit() {}
 
