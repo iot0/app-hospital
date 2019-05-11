@@ -67,6 +67,7 @@ export class PatientFormComponent implements OnInit {
   }
 
   prepareSaveInfo(): User {
+    let hospital=this.userService.currentUserObj();
     const formModel = this.createForm.value;
     let user: User = {
       FullName: formModel.fullName,
@@ -77,7 +78,11 @@ export class PatientFormComponent implements OnInit {
       Address: formModel.address,
       Role: UserRole.Patient,
       Password: generatePassword(formModel.dob, formModel.emailId),
-      Doctor: formModel.doctor
+      Doctor: formModel.doctor,
+      Hospital:{
+        Uid:hospital.Uid,
+        FullName:hospital.FullName
+      }
     };
     return user;
   }

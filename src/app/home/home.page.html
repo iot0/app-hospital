@@ -11,7 +11,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="bg-secondary content-center">
+  <div class="bg-secondary content-center h-100">
     <div class="col-grid">
       <!--trips-->
       <ion-card class="col-item" [routerLink]="['/patients']" *ngIf="(userService.isHospital$ | async)">
@@ -56,21 +56,21 @@
           Notifications
         </div>
       </ion-card>
-      <ion-card class="col-item" *ngIf="(userService.isFamily$ | async)" [routerLink]="['/patient/' + user.Patient?.Uid]">
+      <ion-card class="col-item" *ngIf="(userService.isFamily$ | async)" (click)='patientDetails()'>
         <!-- <ion-icon name="infinite" color='secondary'></ion-icon> -->
         <img src="/assets/patient.png" alt="" />
         <div class="col-label">
           Patient
         </div>
       </ion-card>
-      <ion-card class="col-item" *ngIf="(userService.isDoctor$ | async)" [routerLink]="['/doctor/' + user.Uid]">
+      <ion-card class="col-item" *ngIf="(userService.isDoctor$ | async)" (click)='doctorDetails()'>
         <!-- <ion-icon name="infinite" color='secondary'></ion-icon> -->
         <img src="/assets/doctor.jpg" alt="" />
         <div class="col-label">
           Your Details
         </div>
       </ion-card>
-      <ion-card class="col-item" *ngIf="(userService.isPatient$ | async)" [routerLink]="['/patient/' + user.Uid]">
+      <ion-card class="col-item" *ngIf="(userService.isPatient$ | async)" (click)='patientDetails()'>
         <!-- <ion-icon name="infinite" color='secondary'></ion-icon> -->
         <img src="/assets/family.png" alt="" />
         <div class="col-label">

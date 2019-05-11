@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewEncapsulation } from "@angular/core";
+import { Component, AfterViewInit, ViewEncapsulation, OnInit } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { UserService } from "../shared/services/user.service";
 import { User, UserRole } from "../shared/models/user";
@@ -14,7 +14,7 @@ import { ViewNotificationComponent } from "../shared/components/view-notificatio
   styleUrls: ["home.page.scss"]
   // encapsulation:ViewEncapsulation.None
 })
-export class HomePage implements AfterViewInit {
+export class HomePage implements AfterViewInit, OnInit {
   user: User;
   patient: User;
   drawerOptions: any;
@@ -24,7 +24,6 @@ export class HomePage implements AfterViewInit {
     private router: Router,
     private modalCtrl: ModalController
   ) {
-    this.user = this.userService.currentUserObj();
     console.log(this.user);
     this.drawerOptions = {
       handleHeight: 50,
@@ -33,7 +32,9 @@ export class HomePage implements AfterViewInit {
       bounceBack: true
     };
   }
-
+  ngOnInit(): void {
+    this.user = this.userService.currentUserObj();
+  }
   ngAfterViewInit(): void {}
 
   async onLogOut() {
@@ -55,8 +56,8 @@ export class HomePage implements AfterViewInit {
       props.to = user.Uid;
     } else if (user.Role == UserRole.Family) {
       props.to = user.Patient.Uid;
-    }else if(user.Role == UserRole.Doctor) {
-      props.from=user.Uid;
+    } else if (user.Role == UserRole.Doctor) {
+      props.from = user.Uid;
     }
     const modal = await this.modalCtrl.create({
       component: ViewNotificationComponent,
@@ -64,5 +65,17 @@ export class HomePage implements AfterViewInit {
     });
 
     return await modal.present();
+  }
+  patientDetails() {
+    let user = this.userService.currentUserObj();
+    let uid = null;
+    if (user.Role === UserRole.Patient) uid = user.Uid;
+    else if (user.Role === UserRole.Family) uid = user.Patient.Uid;
+
+    this.router.navigate([`/patient/${uid}`]);
+  }
+  doctorDetails() {
+    let user = this.userService.currentUserObj();
+    this.router.navigate([`/doctor/${user.Uid}`]);
   }
 }

@@ -13,6 +13,7 @@ export class User {
   DOB?: Date;
   Patient?:User;
   Doctor?:User;
+  Hospital?:User;
   Families?:User[];
   IsWatching?:boolean;
   DeviceIp?:string;

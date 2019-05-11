@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { NotificationService } from "../../services/notification.service";
 import { catchError, takeWhile } from "rxjs/operators";
 import { BehaviorSubject } from "rxjs";
@@ -12,7 +12,10 @@ import { UserService } from '../../services/user.service';
   templateUrl: "./view-notification.component.html",
   styleUrls: ["./view-notification.component.scss"]
 })
-export class ViewNotificationComponent implements OnInit {
+export class ViewNotificationComponent implements OnInit ,OnDestroy{
+  ngOnDestroy(): void {
+    this.isAlive=false;
+  }
   data$: BehaviorSubject<any> = new BehaviorSubject({ loading: true });
   isAlive: boolean = true;
   from: string;

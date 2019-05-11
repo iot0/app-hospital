@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { FormMode } from "../shared/models/form";
 import { ActivatedRoute, Router } from "@angular/router";
 import { User } from "../shared/models/user";
 import { UserService } from "../shared/services/user.service";
-import { catchError, first, map } from "rxjs/operators";
+import { catchError, first, map, takeWhile } from "rxjs/operators";
 import { BehaviorSubject } from "rxjs";
 import { ModalController } from "@ionic/angular";
 import { FamilyFormComponent } from "./family-form/family-form.component";
@@ -15,7 +15,7 @@ import { SyncDeviceComponent } from "../shared/components/sync-device/sync-devic
   templateUrl: "./patient.page.html",
   styleUrls: ["./patient.page.scss"]
 })
-export class PatientPage implements OnInit {
+export class PatientPage implements OnInit, OnDestroy {
   mode: FormMode = "existing";
   data$: BehaviorSubject<any> = new BehaviorSubject({ loading: true });
   family$: BehaviorSubject<any> = new BehaviorSubject({ loading: true });
@@ -72,6 +72,7 @@ export class PatientPage implements OnInit {
     this.userService
       .getUserDetails(patientId)
       .pipe(
+        takeWhile(() => this.isAlive),
         catchError(err => {
           this.data$.next({ error: true });
           return err;
@@ -87,6 +88,7 @@ export class PatientPage implements OnInit {
     this.userService
       .getPatientFamilies(patientId)
       .pipe(
+        takeWhile(() => this.isAlive),
         catchError(err => {
           this.family$.next({ error: true });
           return err;
@@ -102,6 +104,7 @@ export class PatientPage implements OnInit {
   async addToWatch() {
     let patient: User = await this.data$
       .pipe(
+        takeWhile(() => this.isAlive),
         first(),
         map(x => x.data)
       )
@@ -126,6 +129,7 @@ export class PatientPage implements OnInit {
   async removeFromWatch() {
     let patient: User = await this.data$
       .pipe(
+        takeWhile(() => this.isAlive),
         first(),
         map(x => x.data)
       )
@@ -136,5 +140,9 @@ export class PatientPage implements OnInit {
     } else {
       this.themeService.alert("Error", "Invalid patient details :( ");
     }
+  }
+
+  ngOnDestroy(): void {
+    this.isAlive = false;
   }
 }

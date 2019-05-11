@@ -15,7 +15,7 @@ export class SelectDoctorComponent implements OnDestroy {
   isAlive: boolean = true;
   constructor(public modalController: ModalController, private userService: UserService) {
     this.userService
-      .getByRole(UserRole.Doctor)
+      .getHospitalDoctors()
       .pipe(
         catchError(err => {
           this.data$.next({ error: true });

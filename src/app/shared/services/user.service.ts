@@ -107,6 +107,25 @@ export class UserService {
       return ref.where("Role", "==", role).limit(20);
     });
   }
+  getHospitalDoctors(): Observable<any> {
+    let user = this.currentUserObj();
+    return this.firestoreService.colWithIds$<User>(this.collectionName, ref => {
+      return ref
+        .where("Role", "==", UserRole.Doctor)
+        .where("HospitalId", "==", user.Uid)
+        .limit(20);
+    });
+  }
+
+  getHospitalPatients(): Observable<any> {
+    let user = this.currentUserObj();
+    return this.firestoreService.colWithIds$<User>(this.collectionName, ref => {
+      return ref
+        .where("Role", "==", UserRole.Patient)
+        .where("Hospital.Uid", "==", user.Uid)
+        .limit(20);
+    });
+  }
 
   getPatientFamilies(patientId: string): Observable<any> {
     console.log(patientId);
@@ -128,7 +147,7 @@ export class UserService {
     });
   }
 
-  getWatchingDevices(doctorId:string){
+  getWatchingDevices(doctorId: string) {
     return this.firestoreService.colWithIds$<User>(this.collectionName, ref => {
       return ref
         .where("Role", "==", UserRole.Patient)
@@ -137,8 +156,8 @@ export class UserService {
         .limit(20);
     });
   }
-  async watchPatient(patientId: string,ip:string) {
-    return this.firestoreService.update<User>(`${this.collectionName}/${patientId}`, { IsWatching: true ,DeviceIp:ip});
+  async watchPatient(patientId: string, ip: string) {
+    return this.firestoreService.update<User>(`${this.collectionName}/${patientId}`, { IsWatching: true, DeviceIp: ip });
   }
   async unWatchPatient(patientId: string) {
     return this.firestoreService.update(`${this.collectionName}/${patientId}`, { IsWatching: false });

@@ -33,9 +33,8 @@ export class PatientsPage implements OnInit, OnDestroy {
     if (doctorId && doctorId != "") {
       service = this.userService.getDoctorPatients(doctorId);
     } else {
-      service = this.userService.getByRole(UserRole.Patient);
+      service = this.userService.getHospitalPatients();
     }
-
     service
       .pipe(
         catchError(err => {
@@ -46,7 +45,7 @@ export class PatientsPage implements OnInit, OnDestroy {
       )
       .subscribe(res => {
         console.log(res);
-        if (res) this.data$.next({ data: res });
+        if (res && res.length>0) this.data$.next({ data: res });
         else this.data$.next({ empty: true });
       });
   }
