@@ -1,0 +1,7 @@
+{
+  "appId": "net.keephacking.khhospital",
+  "appName": "kh hospital",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www"
+}
